@@ -13,6 +13,11 @@ app.get('/', function(req, res){
     res.send('Welcome to Express')
 })
 
+// Connect to the database before each request
+app.use(async (req, res, next) => {
+    await connectDB();
+    next();
+});
 //Import the router files
 const personRoutes = require('./routes/personRoutes')
 app.use('/person',personRoutes)
